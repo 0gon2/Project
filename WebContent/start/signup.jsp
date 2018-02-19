@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
+
 	String esname=request.getParameter("esname");
  	String msname=request.getParameter("msname");
 	String hsname=request.getParameter("hsname");
@@ -26,16 +27,17 @@
 }
 
 body {
-  background-color: #f1f1f1;
+  background-color: #ffffff;
 }
 
 #regForm {
   background-color: #ffffff;
-  margin: 100px auto;
+  margin: 50px auto;
   font-family: Raleway;
-  padding: 40px;
-  width: 70%;
+  padding: 5px;
+  width: 40%;
   min-width: 300px;
+  border: 1px solid #888;
 }
 
 h1 {
@@ -101,11 +103,9 @@ button:hover {
 </style>
 <body>
 
-<div class="w3-container">
-
   <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-green w3-large">Login</button>
-  <button onclick="window.location='signup.jsp'" class="w3-button w3-blue w3-large">Sign Up</button>
 
+<div class="w3-container">
   <div id="id01" class="w3-modal">
     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
   
@@ -113,7 +113,7 @@ button:hover {
         <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
       </div>
 
-      <form class="w3-container" action="/action_page.php">
+      <form class="w3-container" action="">
         <div class="w3-section">
           <label><b>Username</b></label>
           <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="usrname" required>
@@ -141,9 +141,9 @@ button:hover {
    <p><input oninput="this.className = ''" name="sch_emt" 
     OnClick="window.location='searchSchool.jsp?index=1'" value=<%=esname %>></p>
    <p><input oninput="this.className = ''" name="sch_mid" 
-   ></p>
+   OnClick="window.location='searchSchool.jsp?index=2'" value=<%=msname %>></p>
    <p><input oninput="this.className = ''" name="sch_high" 
-   ></p>
+   OnClick="window.location='searchSchool.jsp?index=3'" value=<%=hsname %>></p>
   
   
   

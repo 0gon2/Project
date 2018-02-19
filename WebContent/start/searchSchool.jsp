@@ -51,22 +51,25 @@ form.example::after {
 <body>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String esname=request.getParameter("esname");
-	String msname=request.getParameter("msname");
-	String hsname=request.getParameter("hsname");
+	String esname=null;
+	esname=request.getParameter("esname");
+	String msname=null;
+	msname=request.getParameter("msname");
+	String hsname=null;
+	hsname=request.getParameter("hsname");
 	String index=request.getParameter("index");
 
 %>
  <%
 SchoolDAO schoolDB= SchoolDAO.getInstance();
  List List=null;
+ 
 /*초등학교  */ 
 if(index.equals("1")){
  List=schoolDB.getSchools(esname,"초등학교"); 
  %>
  
 <h2>Search School</h2>
-
 
 <p>Enter your School name:</p>
 <form class="example" action="" style="margin:auto;max-width:300px">
@@ -90,9 +93,11 @@ if(index.equals("1")){
       <%
       for(int i=0;i<List.size();i++){
     	SchoolVO school=(SchoolVO)List.get(i);
+    	esname=school.getSname();
     	%>
 		    <tr>
-		      <td><a href="signup.jsp?esname=<%=school.getSname()%>"><%=school.getSname() %></a></td>
+		      <td><a href="signup.jsp?esname=<%=esname%>
+		      &msname=<%=msname%>&hsname=<%=hsname%>"><%=esname %></a></td>
 		      <td><%=school.getSaddress() %></td>
 		      <td></td>
 		    </tr>
@@ -139,9 +144,11 @@ if(index.equals("2")){
        <%
        for(int i=0;i<List.size();i++){
      	SchoolVO school=(SchoolVO)List.get(i);
+     	msname=school.getSname();
      	%>
  		    <tr>
- 		      <td><%=school.getSname() %></td>
+ 		       <td><a href="signup.jsp?esname=<%=esname%>
+		      &msname=<%=msname%>&hsname=<%=hsname%>"><%=msname %></a></td>
  		      <td><%=school.getSaddress() %></td>
  		      <td></td>
  		    </tr>
@@ -186,9 +193,11 @@ if(index.equals("3")){
        <%
        for(int i=0;i<List.size();i++){
      	SchoolVO school=(SchoolVO)List.get(i);
+     	hsname=school.getSname();
      	%>
  		    <tr>
- 		      <td><%=school.getSname() %></td>
+ 		       <td><a href="signup.jsp?esname=<%=esname%>
+		      &msname=<%=msname%>&hsname=<%=hsname%>"><%=hsname %></a></td>
  		      <td><%=school.getSaddress() %></td>
  		      <td></td>
  		    </tr>
