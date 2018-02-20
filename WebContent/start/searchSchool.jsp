@@ -14,8 +14,6 @@
 body {
     font-family: Arial;
 }
-
-
 form.example input[type=text] {
     padding: 6px;
     font-size: 17px;
@@ -24,7 +22,6 @@ form.example input[type=text] {
     width: 80%;
     background: #f1f1f1;
 }
-
 form.example button {
     float: left;
     width: 20%;
@@ -36,11 +33,9 @@ form.example button {
     border-left: none;
     cursor: pointer;
 }
-
 form.example button:hover {
     background: #0b7dda;
 }
-
 form.example::after {
     content: "";
     clear: both;
@@ -58,7 +53,6 @@ form.example::after {
 	String hsname=null;
 	hsname=request.getParameter("hsname");
 	String index=request.getParameter("index");
-
 %>
  <%
 SchoolDAO schoolDB= SchoolDAO.getInstance();
@@ -114,7 +108,6 @@ if(index.equals("1")){
  <% 
  
 }
-
 /*중학교  */
 if(index.equals("2")){
  List=schoolDB.getSchools(msname,"중학교");
@@ -162,7 +155,6 @@ if(index.equals("2")){
    %>
   <% 
 }
-
 /*고등학교  */
 if(index.equals("3")){
  List=schoolDB.getSchools(hsname,"고등학교");

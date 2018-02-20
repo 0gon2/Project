@@ -3,18 +3,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
 
-	String esname=request.getParameter("esname");
- 	String msname=request.getParameter("msname");
-	String hsname=request.getParameter("hsname");
-	if(esname==null){
-		esname="Click";
-	}
-	if(msname==null){
-		msname="Click";
-	}
-	if(hsname==null){
-		hsname="Click";
-	}
 %>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,7 +90,7 @@ button:hover {
 }
 </style>
 <body>
-
+<!-- 로그인 모달 -->
   <button onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-green w3-large">Login</button>
 
 <div class="w3-container">
@@ -133,20 +121,16 @@ button:hover {
   </div>
 </div>
 
-<form id="regForm" action="start.jsp">
+
+
+<form id="regForm" action="signupPro.jsp">
 	
   <h1>Register:</h1>
   <!-- One "tab" for each step in the form: -->
   <div class="tab">School name:
-   <p><input oninput="this.className = ''" name="sch_emt" 
-    OnClick="window.location='searchSchool.jsp?index=1'" value=<%=esname %>></p>
-   <p><input oninput="this.className = ''" name="sch_mid" 
-   OnClick="window.location='searchSchool.jsp?index=2'" value=<%=msname %>></p>
-   <p><input oninput="this.className = ''" name="sch_high" 
-   OnClick="window.location='searchSchool.jsp?index=3'" value=<%=hsname %>></p>
-  
-  
-  
+   <p><input oninput="this.className = ''" name="sch_emt"></p>
+   <p><input oninput="this.className = ''" name="sch_mid"></p>
+   <p><input oninput="this.className = ''" name="sch_high"></p>
   </div>
   <div class="tab">User Info:
     <p><input placeholder="name" oninput="this.className = ''" name="name"></p>
@@ -154,13 +138,13 @@ button:hover {
   </div>
   
   <div class="tab">Create ID: 
-    <p><input placeholder="ID" oninput="this.className = ''" name="userid"></p>
+    <p><input placeholder="ID" oninput="this.className = ''" name="memberid"></p>
 	<p><input placeholder="password" type="password" oninput="this.className = ''" name="password"></p>
   </div>
   <div style="overflow:auto;">
     <div style="float:right;">
-      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">이전</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">다음</button>
     </div>
   </div>
   <!-- Circles which indicates the steps of the form: -->
@@ -185,9 +169,10 @@ function showTab(n) {
     document.getElementById("prevBtn").style.display = "inline";
   }
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
+    document.getElementById("nextBtn").innerHTML = "회원가입";
+    
   } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
+    document.getElementById("nextBtn").innerHTML = "다음";
   }
   //... and run a function that will display the correct step indicator:
   fixStepIndicator(n)
@@ -206,6 +191,7 @@ function nextPrev(n) {
   if (currentTab >= x.length) {
     // ... the form gets submitted:
     document.getElementById("regForm").submit();
+    alert("가입 완료");
     return false;
   }
   // Otherwise, display the correct tab:

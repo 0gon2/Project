@@ -67,24 +67,17 @@ public class MemberDAO {
 		String sql = "";
 		int number = 0;
 		try {
-			pstmt = con.prepareStatement("select memberSer.nextval from dual");
-			rs = pstmt.executeQuery();
-			if (rs.next())
-				number = rs.getInt(1);
-			else
-				number = 1;
-			sql = "insert into member(password, name,email,sch_emt,sch_mid,sch_high,";
-			sql += "content, birthday, num) values(?,?,?,?,?,?,?,?,?)";
+			sql = "insert into member(memberid, password,name,birthday,sch_emt,sch_mid,sch_high,";
+			sql += " joindate, point) values(?,?,?,?,?,?,?,sysdate,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member.getPassword());
-			pstmt.setString(2, member.getName());
-			pstmt.setString(3, member.getEmail());
-			pstmt.setString(4, member.getSch_emt());
-			pstmt.setString(5, member.getSch_mid());
-			pstmt.setString(6, member.getSch_high());
-			pstmt.setString(7, member.getContent());
-			pstmt.setInt(8, member.getBirthday());
-			pstmt.setInt(9, number);
+			pstmt.setString(1, member.getMemberid());
+			pstmt.setString(2, member.getPassword());
+			pstmt.setString(3, member.getName());
+			pstmt.setInt(4, member.getBirthday());
+			pstmt.setString(5, member.getSch_emt());
+			pstmt.setString(6, member.getSch_mid());
+			pstmt.setString(7, member.getSch_high());
+			pstmt.setInt(8, 10);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.getStackTrace();
@@ -142,14 +135,11 @@ public class MemberDAO {
 				memberList = new ArrayList();
 				do {
 					MemberVO member = new MemberVO();
-					member.setNum(rs.getInt("num"));
 					member.setBirthday(rs.getInt("birthday"));
 					member.setName(rs.getString("name"));
-					member.setEmail(rs.getString("email"));
 					member.setSch_emt(rs.getString("sch_emt"));
 					member.setSch_mid(rs.getString("sch_mid"));
 					member.setSch_high(rs.getString("sch_high"));
-					member.setContent(rs.getString("content"));
 					member.setPassword(rs.getString("password"));
 					memberList.add(member);
 				} while (rs.next());
@@ -186,14 +176,11 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				member = new MemberVO();
-				member.setNum(rs.getInt("num"));
 				member.setBirthday(rs.getInt("birthday"));
 				member.setName(rs.getString("name"));
-				member.setEmail(rs.getString("email"));
 				member.setSch_emt(rs.getString("sch_emt"));
 				member.setSch_mid(rs.getString("sch_mid"));
 				member.setSch_high(rs.getString("sch_high"));
-				member.setContent(rs.getString("content"));
 				
 				}
 		} catch (Exception e) {

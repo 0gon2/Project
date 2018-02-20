@@ -1,22 +1,22 @@
 package member;
 
+import java.sql.Date;
+
 public class MemberVO {
+	private String memberid;
 	private String password;
 	private String name;
-	private String email;
+	private int birthday;
 	private String sch_emt;
 	private String sch_mid;
 	private String sch_high;
-	private int birthday;
-	private String content;
-	private int num;
-	
-	
-	public int getNum() {
-		return num;
+	private Date joindate;
+	private int point;
+	public String getMemberid() {
+		return memberid;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setMemberid(String memberid) {
+		this.memberid = memberid;
 	}
 	public String getPassword() {
 		return password;
@@ -30,11 +30,11 @@ public class MemberVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getEmail() {
-		return email;
+	public int getBirthday() {
+		return birthday;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setBirthday(int birthday) {
+		this.birthday = birthday;
 	}
 	public String getSch_emt() {
 		return sch_emt;
@@ -54,23 +54,17 @@ public class MemberVO {
 	public void setSch_high(String sch_high) {
 		this.sch_high = sch_high;
 	}
-	public int getBirthday() {
-		return birthday;
+	public Date getJoindate() {
+		return joindate;
 	}
-	public void setBirthday(int birthday) {
-		this.birthday = birthday;
+	public void setJoindate(Date joindate) {
+		this.joindate = joindate;
 	}
-	public String getContent() {
-		return content;
+	public int getPoint() {
+		return point;
 	}
-	public void setContent(String content) {
-		this.content = content;
-	}
-	@Override
-	public String toString() {
-		return "MemberVO [password=" + password + ", name=" + name + ", email=" + email + ", sch_emt=" + sch_emt
-				+ ", sch_mid=" + sch_mid + ", sch_high=" + sch_high + ", birthday=" + birthday + ", content=" + content
-				+ ", num=" + num + "]";
+	public void setPoint(int point) {
+		this.point = point;
 	}
 	
 }
