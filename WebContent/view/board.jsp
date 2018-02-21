@@ -7,11 +7,24 @@
 <title>Insert title here</title>
 
 <body>
+
+<!-- 
+
+	0. 해당하는 학교에 게시판이 없다면 인서트
+	1. 맴버db에 저장되어 있는 id에 해당하는 초등학교 중학교 고등학교를 가지고 온다음
+	2. a태그의 이름으로 넣어주고 href는? 게시판 링크(schoolboard.jsp)로 보내주고
+	3. where sname= 학교이름 해서  
+	
+	게시판 링크에서는 학교 id기준으로 if문 써야겠다.
+	학교db에 학교id를 가지고와야돼 뭐를 기준으로? 학교 id가 보드id가 되겠네 
+	
+
+ -->
 <div class="w3-sidebar w3-bar-block w3-collapse w3-animate-left" style="z-index:3;width:270px" id="mySidebar">
 
   <div class="myMenu" >
   <div class="w3-container">
-    <h4>학생부 명단</h4>
+    <h4>학생 명단</h4>
   </div>
     <a class="w3-bar-item w3-button" href="">(…)초등학교</a>
   <a class="w3-bar-item w3-button" href="">(…)중학교</a>

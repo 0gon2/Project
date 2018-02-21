@@ -10,6 +10,8 @@ import java.util.List;
 
 
 
+
+
 public class MemberDAO {
 	// 싱글턴 메소드(1)
 	private static MemberDAO instance = new MemberDAO();
@@ -60,6 +62,41 @@ public class MemberDAO {
 
 	}
 	
+	//로그인
+	public int login(String memberid, String password) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT password FROM member WHERE memberid=?";
+		try{
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberid);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getString(1).equals(password)) {
+					return 1;	//로그인 성공
+				}
+				else {
+					return 0;	//비밀번호 불일치
+				}
+			}
+			return -1; //아이디가 없다
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -2; //데이터베이스 오류
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//회원등록 메소드
 	public void insertMember(MemberVO member) {
 		Connection con = getConnection();
 		PreparedStatement pstmt = null;
@@ -87,7 +124,112 @@ public class MemberDAO {
 
 	}
 	
-	public int getMemberCount(String sch_emt) {
+	//학교 게시판에 명단 추가 메소드
+	public void insertSchoolList(MemberVO member) {
+		Connection con = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		int number = 0;
+		try {
+			sql = "insert into smember(birthday,name, joindate) values(?,?,sysdate)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, member.getBirthday());
+			pstmt.setString(2, member.getName());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.getStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+
+	}
+	
+	//학교 게시판에 명단 보여주는 메소드   여기서 부터!!!!!
+	public List getSchoolList(int startRow, int endRow, String sname) {
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List articleList = null;
+		String sql = "";
+		try {
+			conn = getConnection();
+			sql = " select * from (select rownum rnum ,a.* from "
+					+ "(select num,writer,email,subject,passwd,"
+					+ "reg_date,readcount,ref,re_step,re_level,content,"
+					+ "ip from smember where sname = ? by joindate desc) "
+					+ "	a ) where rnum  between ? and ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articleList = new ArrayList();
+				do {
+					SmemberVO article = new SmemberVO();
+					articleList.add(article);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return articleList;
+	}
+	
+	
+	
+	
+	
+	//회원전체 리스트 
+	public List getAllmember(int startRow, int endRow) {
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List articleList = null;
+		String sql = "";
+		try {
+			conn = getConnection();
+			sql = " select * from (select rownum rnum ,a.* from "
+					+ "(select memberid, password, name, birthday, joindate"
+					+ " from member order by joindate desc) "
+					+ "	a ) where rnum  between ? and ? ";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+
+			if (rs.next()) {
+				articleList = new ArrayList();
+				do {
+					MemberVO article = new MemberVO();
+					article.setMemberid(rs.getString("memberid"));
+					article.setPassword(rs.getString("password"));
+					article.setName(rs.getString("name"));
+					article.setBirthday(rs.getInt("birthday"));
+					article.setJoindate(rs.getDate("joindate"));
+					articleList.add(article);
+				} while (rs.next());
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return articleList;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	//전체 회원 수 카운팅
+	public int getMemberCount() {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -95,9 +237,8 @@ public class MemberDAO {
 		int number = 0;
 		try {
 			con=getConnection();
-			sql = "select nvl(count(*),0) from member where sch_emt = ?";
+			sql = "select nvl(count(*),0) from member";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, sch_emt);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				number = rs.getInt(1);

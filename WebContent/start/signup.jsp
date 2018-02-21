@@ -2,7 +2,18 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
-
+	String esname=request.getParameter("esname");
+	if(esname==null){
+		esname="Click";
+	}
+	String msname=request.getParameter("msname");
+	if(msname==null){
+		msname="Click";
+	}
+	String hsname=request.getParameter("hsname");
+	if(hsname==null){
+		hsname="Click";
+	}
 %>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,15 +133,18 @@ button:hover {
 </div>
 
 
-
+<!-- 회원가입 폼  -->
 <form id="regForm" action="signupPro.jsp">
 	
   <h1>Register:</h1>
   <!-- One "tab" for each step in the form: -->
   <div class="tab">School name:
-   <p><input oninput="this.className = ''" name="sch_emt"></p>
-   <p><input oninput="this.className = ''" name="sch_mid"></p>
-   <p><input oninput="this.className = ''" name="sch_high"></p>
+   <p><input oninput="this.className = ''" name="sch_emt"
+   onclick="window.location='searchSchool.jsp?index=1&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>'" value="<%=esname%>"></p>
+   <p><input oninput="this.className = ''" name="sch_mid"
+   onclick="window.location='searchSchool.jsp?index=2&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>'" value="<%=msname%>"></p>
+   <p><input oninput="this.className = ''" name="sch_high"
+   onclick="window.location='searchSchool.jsp?index=3&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>'" value="<%=hsname%>"></p>
   </div>
   <div class="tab">User Info:
     <p><input placeholder="name" oninput="this.className = ''" name="name"></p>
@@ -149,7 +163,6 @@ button:hover {
   </div>
   <!-- Circles which indicates the steps of the form: -->
   <div style="text-align:center;margin-top:40px;">
-    <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>
     <span class="step"></span>

@@ -46,12 +46,9 @@ form.example::after {
 <body>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String esname=null;
-	esname=request.getParameter("esname");
-	String msname=null;
-	msname=request.getParameter("msname");
-	String hsname=null;
-	hsname=request.getParameter("hsname");
+	String esname=request.getParameter("esname");
+	String msname=request.getParameter("msname");
+	String hsname=request.getParameter("hsname");
 	String index=request.getParameter("index");
 %>
  <%
@@ -69,10 +66,12 @@ if(index.equals("1")){
 <form class="example" action="" style="margin:auto;max-width:300px">
   <input type="text" placeholder="Search.." name="esname">
   <input type="hidden" name="index" value=<%=index %>>
+  <input type="hidden" name="msname" value=<%=msname %>>
+  <input type="hidden" name="hsname" value=<%=hsname %>>
   <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 
- <% if(esname!=null){ %>
+ <% if(List!=null){ %>
 <div class="w3-container">
   <h2>School List</h2>
 
@@ -87,11 +86,9 @@ if(index.equals("1")){
       <%
       for(int i=0;i<List.size();i++){
     	SchoolVO school=(SchoolVO)List.get(i);
-    	esname=school.getSname();
     	%>
 		    <tr>
-		      <td><a href="signup.jsp?esname=<%=esname%>
-		      &msname=<%=msname%>&hsname=<%=hsname%>"><%=esname %></a></td>
+		      <td><a href="signup.jsp?esname=<%=school.getSname() %>&msname=<%=msname%>&hsname=<%=hsname%>"><%=school.getSname() %></a></td>
 		      <td><%=school.getSaddress() %></td>
 		      <td></td>
 		    </tr>
@@ -103,10 +100,7 @@ if(index.equals("1")){
 	<%
     }
   %>
- 
- 
  <% 
- 
 }
 /*중학교  */
 if(index.equals("2")){
@@ -119,10 +113,12 @@ if(index.equals("2")){
  <form class="example" action="" style="margin:auto;max-width:300px">
    <input type="text" placeholder="Search.." name="msname">
    <input type="hidden" name="index" value=<%=index %>>
+   <input type="hidden" name="esname" value=<%=esname %>>
+   <input type="hidden" name="hsname" value=<%=hsname %>>
    <button type="submit"><i class="fa fa-search"></i></button>
  </form>
 
-  <% if(msname!=null){ %>
+  <% if(List!=null){ %>
  <div class="w3-container">
    <h2>School List</h2>
 
@@ -137,11 +133,9 @@ if(index.equals("2")){
        <%
        for(int i=0;i<List.size();i++){
      	SchoolVO school=(SchoolVO)List.get(i);
-     	msname=school.getSname();
      	%>
  		    <tr>
- 		       <td><a href="signup.jsp?esname=<%=esname%>
-		      &msname=<%=msname%>&hsname=<%=hsname%>"><%=msname %></a></td>
+ 		       <td><a href="signup.jsp?esname=<%=esname%>&msname=<%=school.getSname() %>&hsname=<%=hsname%>"><%=school.getSname() %></a></td>
  		      <td><%=school.getSaddress() %></td>
  		      <td></td>
  		    </tr>
@@ -167,10 +161,12 @@ if(index.equals("3")){
  <form class="example" action="" style="margin:auto;max-width:300px">
    <input type="text" placeholder="Search.." name="hsname">
    <input type="hidden" name="index" value=<%=index %>>
+   <input type="hidden" name="esname" value=<%=esname %>>
+   <input type="hidden" name="msname" value=<%=msname %>>
    <button type="submit"><i class="fa fa-search"></i></button>
  </form>
 
-  <% if(hsname!=null){ %>
+  <% if(List!=null){ %>
  <div class="w3-container">
    <h2>School List</h2>
 
@@ -185,11 +181,9 @@ if(index.equals("3")){
        <%
        for(int i=0;i<List.size();i++){
      	SchoolVO school=(SchoolVO)List.get(i);
-     	hsname=school.getSname();
      	%>
  		    <tr>
- 		       <td><a href="signup.jsp?esname=<%=esname%>
-		      &msname=<%=msname%>&hsname=<%=hsname%>"><%=hsname %></a></td>
+ 		       <td><a href="signup.jsp?esname=<%=esname%>&msname=<%=msname%>&hsname=<%=school.getSname() %>"><%=school.getSname() %></a></td>
  		      <td><%=school.getSaddress() %></td>
  		      <td></td>
  		    </tr>
@@ -212,38 +206,7 @@ if(index.equals("3")){
 
 
 
-<!-- 검색 초기 화면 -->
- <% if(List!=null&&esname==null&&msname==null&&hsname==null){ %>
-<div class="w3-container">
-  <h2>Search result</h2>
 
-  <table class="w3-table-all">
-    <thead>
-      <tr class="w3-blue">
-        <th>School Name</th>
-        <th>Address</th>
-        <th>blank</th>
-      </tr>
-    </thead>
-      <%
-      for(int i=0;i<List.size();i++){
-    	SchoolVO school=(SchoolVO)List.get(i);
-    	%>
-		    <tr>
-		      <td><%=school.getSname() %></td>
-		      <td><%=school.getSaddress() %></td>
-		      <td></td>
-		    </tr>
-    <%
-    }
-  %>  
-  </table>
-</div>
-	<%
-    }
-  %>
- 
- 
 
 
 

@@ -93,10 +93,11 @@ span.psw {
 </head>
 <body>
   
-  <form class="modal-content animate" action="">
+  <form class="modal-content animate" action="loginPro.jsp" method="get">
+  
     <div class="container">
       <label for="uname"><b>아이디</b></label>
-      <input type="text" placeholder="ID" name="userid" required>
+      <input type="text" placeholder="ID" name="memberid" required>
 
       <label for="psw"><b>비밀번호</b></label>
       <input type="password" placeholder="Password" name="password" required>

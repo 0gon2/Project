@@ -28,6 +28,17 @@
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="/Project/view/mainPage.jsp" >메인</a>
    <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="/Project/view/board.jsp" >게시판</a>
    <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="/Project/view/lounge.jsp" >라운지</a>
+   	<i style="font-size:26px" class="fa w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16 w3-right">&#xf039;</i>
+   	
+    <button class="w3-bar-item w3-button w3-blue w3-mobile w3-right w3-padding-20 ">?</button>
+    <input type="text" class="w3-bar-item w3-input w3-blue-grey w3-mobile w3-right w3-padding-20">
+
+
+   	
+   	
+   	
+   	
+   	
   </div>
 </div>
 
