@@ -12,6 +12,7 @@ import java.util.List;
 
 
 
+
 public class MemberDAO {
 	// 싱글턴 메소드(1)
 	private static MemberDAO instance = new MemberDAO();
@@ -381,6 +382,34 @@ public class MemberDAO {
 		return deleteNum;
 	}
 	
-	
+	public MemberVO getUserInfo(String memberid) {
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		MemberVO article = null;
+		String sql = "";
+		try {
+			conn = getConnection();
+			sql = "select name,sch_emt, sch_mid, sch_high, birthday "
+					+ "from member where memberid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,memberid);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				article = new MemberVO();
+				article.setName(rs.getString("name"));
+				article.setSch_emt(rs.getString("sch_emt"));
+				article.setSch_mid(rs.getString("sch_mid"));
+				article.setSch_high(rs.getString("sch_high"));
+				article.setBirthday(rs.getInt("birthday"));
+				}
+		} catch (Exception e) {
+			e.getStackTrace();
+		} finally {
+			close(conn, pstmt, rs);
+		}
+		return article;
+	}
+
 	
 }

@@ -1,3 +1,4 @@
+<%@page import="member.MemberVO"%>
 <%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -35,8 +36,19 @@
    }
    else
    {
+	  MemberVO mVO=dbPro.getUserInfo(id);
+		String name=mVO.getName();
+		String schemt=mVO.getSch_emt();
+		String schmid=mVO.getSch_mid();
+		String schhigh=mVO.getSch_high();
+		int birthday=mVO.getBirthday();
+	  session.setAttribute("name", name);	
+	  session.setAttribute("schemt", schemt);	
+	  session.setAttribute("schmid", schmid);	
+	  session.setAttribute("schhigh", schhigh);	
+	  session.setAttribute("birthday", birthday);	
 	  session.setAttribute("id",id);
-	  response.sendRedirect("/Project/view/mainPage.jsp");
+	  response.sendRedirect("/Project/mainPage/main.jsp");
    }
 %>
 </body>

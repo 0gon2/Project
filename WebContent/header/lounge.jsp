@@ -2,7 +2,15 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
+<%
+	String schemt=(String)session.getAttribute("schemt");
+	String schmid=(String)session.getAttribute("schmid");
+	String schhigh=(String)session.getAttribute("schhigh");
+	String aditemt=schemt.substring(0,schemt.length()-3);
+	String aditmid=schmid.substring(0,schmid.length()-2);
+	String adithigh=schhigh.substring(0,schhigh.length()-3);
 
+%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,25 +34,35 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
     <div class="w3-half w3-margin-top w3-wide w3-hide-medium w3-hide-small"><div class="w3-right">THE WORLD'S LARGEST WEB DEVELOPER SITE</div></div>
   </div>
   <div class="w3-bar w3-blue-grey w3-large" style="z-index:4;">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="/Project/view/mainPage.jsp" >메인</a>
-   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="/Project/view/board.jsp" >게시판</a>
-   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="/Project/view/lounge.jsp" >라운지</a>
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/mainPage/main.jsp" >메인</a>
+   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="board.jsp" >게시판</a>
+   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="lounge.jsp" >라운지</a>
    	<i style="font-size:26px" class="fa w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16 w3-right">&#xf039;</i>
-   	
-   	
-   	
-   	
-   	
-   	
   </div>
 </div>
 
 <!-- Sidebar -->
+<div class="w3-sidebar w3-bar-block w3-collapse w3-animate-left" style="z-index:3;width:270px" id="mySidebar">
 
-  
+ <div class="myMenu">
+  <div class="w3-container">
+    <h4>라운지</h4>
+  </div>
+    <a class="w3-bar-item w3-button" href="">...</a>
+  <a class="w3-bar-item w3-button" href="">...</a>
+  <a class="w3-bar-item w3-button" href="">...</a>
+  <a class="w3-bar-item w3-button" href="">...</a>
+  </div>
+</div>
 
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
+<div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;">
+
+
 
 </body>
 </html>

@@ -10,12 +10,15 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   
-  <jsp-config>
+   <jsp-config>
   	<jsp-property-group>
-  	<url-pattern>/view/*</url-pattern>
-  	<include-prelude>/header/header.jsp</include-prelude>
+  	<url-pattern>/mainPage/*</url-pattern>
+  	<include-prelude>/header/mainPage.jsp</include-prelude>
   	</jsp-property-group>
-  </jsp-config>
+  	
+  	
+  	
+  </jsp-config> 
   
   <!--로그인 필터  -->
 <!--   	<filter>
