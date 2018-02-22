@@ -10,15 +10,16 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <style>
 .w3-theme {color:#fff !important;background-color:#4CAF50 !important}
 .w3-btn {background-color:#4CAF50;margin-bottom:4px}
 .w3-code{border-left:4px solid #4CAF50}
 .myMenu {margin-bottom:150px}
+html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 </style>
 
-<body>
+<body class="w3-theme-l5">
 <div class="w3-top">
   <div class="w3-row w3-white w3-padding">
     <div class="w3-half" style="margin:4px 0 6px 0"><a href='https://www.w3schools.com'><img src='/Project/images/w3schools.png' alt='W3Schools.com'></a></div>
@@ -30,10 +31,6 @@
    <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="/Project/view/lounge.jsp" >라운지</a>
    	<i style="font-size:26px" class="fa w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16 w3-right">&#xf039;</i>
    	
-    <button class="w3-bar-item w3-button w3-blue w3-mobile w3-right w3-padding-20 ">?</button>
-    <input type="text" class="w3-bar-item w3-input w3-blue-grey w3-mobile w3-right w3-padding-20">
-
-
    	
    	
    	
