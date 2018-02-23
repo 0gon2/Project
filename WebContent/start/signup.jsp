@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%
+	String index=null;
 	String esname=request.getParameter("esname");
 	if(esname==null){
 		esname="Click";
@@ -15,11 +16,60 @@
 		hsname="Click";
 	}
 %>
+
+
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+ <script type="text/javascript">
+	var httpRequest = null;
+	
+	function sendRequest(url, params, callback, method){
+		httpRequest = new XMLHttpRequest();   
+		var httpMethod = method?method:'GET'; /*='GET'  */
+		if(httpMethod!='GET' && httpMethod !='POST'){
+			httpMethod='GET';
+		}
+		
+		var httpParams = (params==null || params =='')?null:params; 
+		var httpUrl = url;                            /* 포스트 방식일때 url */
+		if(httpMethod=='GET' && httpParams !=null){
+			httpUrl=httpUrl+"?"+httpParams;           /* 겟 방식일때 url */
+		}
+		
+		httpRequest.open(httpMethod,httpUrl, true);
+		httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		httpRequest.onreadystatechange=callback;
+		httpRequest.send(httpMethod=='POST'?httpParams:null);
+	}
+	
+	function helloToServer(type){
+		if(type=='esname'){
+		var params ="esname="+encodeURIComponent(document.f.esname.value)+"&index=1";
+		sendRequest("searchList.jsp",params,helloFromServer,"POST");
+		}
+	 	if(type=='msname'){
+		var params ="msname="+encodeURIComponent(document.g.msname.value)+"&index=2";
+		sendRequest("searchList.jsp",params,helloFromServer,"POST");
+		}
+		if(type=='hsname'){
+		var params ="hsname="+encodeURIComponent(document.h.hsname.value);
+		sendRequest("searchList.jsp",params,helloFromServer,"POST");
+		} 
+	}
+	
+	function helloFromServer(){
+		if(httpRequest.readyState==4){
+			if(httpRequest.status==200){
+				document.getElementById("aaa").innerHTML=httpRequest.responseText
+				document.getElementById("bbb").innerHTML=httpRequest.responseText
+			}
+		}
+	}
+	
+</script>
 <style>
 * {
   box-sizing: border-box;
@@ -115,9 +165,9 @@ button:hover {
       <form class="w3-container" action="">
         <div class="w3-section">
           <label><b>Username</b></label>
-          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="usrname" required>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="memberid" required>
           <label><b>Password</b></label>
-          <input class="w3-input w3-border" type="text" placeholder="Enter Password" name="psw" required>
+          <input class="w3-input w3-border" type="text" placeholder="Enter Password" name="password" required>
           <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Login</button>
           <input class="w3-check w3-margin-top" type="checkbox" checked="checked"> Remember me
         </div>
@@ -131,7 +181,54 @@ button:hover {
     </div>
   </div>
 </div>
+<!-- 학교 찾는 모달02(초) -->
+<div id="id02" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+  
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+      </div>
+	<form class="w3-container" name="f">
+        <div class="w3-section">
+          <label><b>학교검색</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="esname" required>
+          <input type="button" onclick="helloToServer('esname')" value="찾기">
+        </div>
+      </form>
+      <div class="w3-container" id="aaa"></div>
+      
+      
+      <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id02').style.display='none'" type="button" class="w3-button w3-red w3-right">Cancel</button>
+        <span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>
+      </div>
 
+    </div>
+  </div>
+
+<div id="id03" class="w3-modal">
+    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+  
+      <div class="w3-center"><br>
+        <span onclick="document.getElementById('id03').style.display='none'" class="w3-button w3-xlarge w3-transparent w3-display-topright" title="Close Modal">×</span>
+      </div>
+	<form class="w3-container" name="g">
+        <div class="w3-section">
+          <label><b>학교검색</b></label>
+          <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Enter Username" name="msname" required>
+          <input type="button" onclick="helloToServer('msname')" value="찾기">
+        </div>
+      </form>
+      <div class="w3-container" id="bbb"></div>
+      
+      
+      <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+        <button onclick="document.getElementById('id03').style.display='none'" type="button" class="w3-button w3-red w3-right">Cancel</button>
+        <span class="w3-right w3-padding w3-hide-small">Forgot <a href="#">password?</a></span>
+      </div>
+
+    </div>
+  </div>
 
 <!-- 회원가입 폼  -->
 <form id="regForm" action="signupPro.jsp">
@@ -140,11 +237,11 @@ button:hover {
   <!-- One "tab" for each step in the form: -->
   <div class="tab">School name:
    <p><input oninput="this.className = ''" name="sch_emt"
-   onclick="window.location='searchSchool.jsp?index=1&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>'" value="<%=esname%>"></p>
+   onclick="document.getElementById('id02').style.display='block'" value="<%=esname%>"></p>
    <p><input oninput="this.className = ''" name="sch_mid"
-   onclick="window.location='searchSchool.jsp?index=2&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>'" value="<%=msname%>"></p>
+   onclick="document.getElementById('id03').style.display='block'" value="<%=msname%>"></p>
    <p><input oninput="this.className = ''" name="sch_high"
-   onclick="window.location='searchSchool.jsp?index=3&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>'" value="<%=hsname%>"></p>
+   onclick="" value="<%=hsname%>"></p>
   </div>
   <div class="tab">User Info:
     <p><input placeholder="name" oninput="this.className = ''" name="name"></p>
@@ -168,6 +265,10 @@ button:hover {
     <span class="step"></span>
   </div>
 </form>
+
+
+
+
 <script>
 var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the crurrent tab
@@ -242,6 +343,7 @@ function fixStepIndicator(n) {
   //... and adds the "active" class on the current step:
   x[n].className += " active";
 }
+
 </script>
 
 </body>
