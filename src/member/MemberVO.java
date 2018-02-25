@@ -12,6 +12,29 @@ public class MemberVO {
 	private String sch_high;
 	private Date joindate;
 	private int point;
+	
+	private String emtid;
+	private String midid;
+	private String highid;
+	
+	public String getEmtid() {
+		return emtid;
+	}
+	public void setEmtid(String emtid) {
+		this.emtid = emtid;
+	}
+	public String getMidid() {
+		return midid;
+	}
+	public void setMidid(String midid) {
+		this.midid = midid;
+	}
+	public String getHighid() {
+		return highid;
+	}
+	public void setHighid(String highid) {
+		this.highid = highid;
+	}
 	public String getMemberid() {
 		return memberid;
 	}

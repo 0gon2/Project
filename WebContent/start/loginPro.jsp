@@ -48,6 +48,7 @@
 	  session.setAttribute("schhigh", schhigh);	
 	  session.setAttribute("birthday", birthday);	
 	  session.setAttribute("id",id);
+	  session.setAttribute("password",pass);
 	  response.sendRedirect("/Project/mainPage/main.jsp");
    }
 %>

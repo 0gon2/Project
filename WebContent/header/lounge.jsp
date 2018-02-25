@@ -35,9 +35,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   </div>
   <div class="w3-bar w3-blue-grey w3-large" style="z-index:4;">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/mainPage/main.jsp" >메인</a>
-   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="board.jsp" >게시판</a>
-   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="lounge.jsp" >라운지</a>
-   	<i style="font-size:26px" class="fa w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16 w3-right">&#xf039;</i>
+   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/board/schoolmateList.jsp" >게시판</a>
+   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/header/lounge.jsp" >라운지</a> 
+   <!--해더 오른쪽 설정  -->
+  	<div class="w3-dropdown-hover w3-hide-medium w3-right">
+     <button class="w3-button w3-hide-medium w3-hover-white w3-padding-16 "><i class="fa fa-bars" style="font-size:26.7px"></i></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px;right:1px">
+      <a href="<%=request.getContextPath()%>/mainPage/update.jsp" class="w3-bar-item w3-button">회원정보</a>
+      <a href="<%=request.getContextPath()%>/start/logoutPro.jsp" class="w3-bar-item w3-button">로그아웃</a>
+	<% 
+		String memberid=(String)session.getAttribute("id");
+		if(memberid.equals("0gon")){
+			%>
+      		<a href="<%=request.getContextPath()%>/mainPage/admin.jsp" class="w3-bar-item w3-button">[회원관리]</a>
+			<% 
+		}
+	%>
+    </div>
+ 	</div>
   </div>
 </div>
 

@@ -13,6 +13,7 @@ import java.util.List;
 
 
 
+
 public class MemberDAO {
 	// 싱글턴 메소드(1)
 	private static MemberDAO instance = new MemberDAO();
@@ -38,6 +39,46 @@ public class MemberDAO {
 
 		}
 		return con;
+	}
+	//학교정보 수정
+	public int updateArticle(MemberVO article) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int updateCount = 0;
+
+		try {
+			conn = getConnection();
+			String sql = "update member set sch_emt=?, sch_mid=?,sch_high=? where memberid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, article.getSch_emt());
+			pstmt.setString(2, article.getSch_mid());
+			pstmt.setString(3, article.getSch_high());
+			pstmt.setString(4, article.getMemberid());
+			updateCount = pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.getStackTrace();
+		} finally {
+			close(conn, pstmt, null);
+		}
+		return updateCount;
+	}
+	
+	//회원 탈퇴
+	public void deleteArticle(String memberid) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try {
+			conn = getConnection();
+			String sql = "delete from member where memberid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memberid);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.getStackTrace();
+		} finally {
+			close(conn, pstmt, null);
+		}
 	}
 
 	// 커넥션 해제 메소드(1)
@@ -89,14 +130,6 @@ public class MemberDAO {
 		return -2; //데이터베이스 오류
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	//회원등록 메소드
 	public void insertMember(MemberVO member) {
 		Connection con = getConnection();
@@ -106,7 +139,7 @@ public class MemberDAO {
 		int number = 0;
 		try {
 			sql = "insert into member(memberid, password,name,birthday,sch_emt,sch_mid,sch_high,";
-			sql += " joindate, point) values(?,?,?,?,?,?,?,sysdate,?)";
+			sql += " joindate, point, emtid, midid, highid) values(?,?,?,?,?,?,?,sysdate,?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, member.getMemberid());
 			pstmt.setString(2, member.getPassword());
@@ -116,6 +149,9 @@ public class MemberDAO {
 			pstmt.setString(6, member.getSch_mid());
 			pstmt.setString(7, member.getSch_high());
 			pstmt.setInt(8, 10);
+			pstmt.setString(9, member.getEmtid());
+			pstmt.setString(10, member.getMidid());
+			pstmt.setString(11, member.getHighid());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.getStackTrace();
@@ -125,50 +161,63 @@ public class MemberDAO {
 
 	}
 	
-	//학교 게시판에 명단 추가 메소드
-	public void insertSchoolList(MemberVO member) {
-		Connection con = getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = "";
-		int number = 0;
-		try {
-			sql = "insert into smember(birthday,name, joindate) values(?,?,sysdate)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, member.getBirthday());
-			pstmt.setString(2, member.getName());
-			pstmt.executeUpdate();
-		} catch (Exception e) {
-			e.getStackTrace();
-		} finally {
-			close(con, pstmt, rs);
-		}
-
-	}
 	
-	//학교 게시판에 명단 보여주는 메소드   여기서 부터!!!!!
-	public List getSchoolList(int startRow, int endRow, String sname) {
+	
+	
+	//학교 명단 추출하는 메소드
+	@SuppressWarnings("resource")
+	public List getSchoolmate(int startRow, int endRow, String sname, String sclass) {
 		Connection conn = getConnection();
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		List articleList = null;
 		String sql = "";
+		
 		try {
 			conn = getConnection();
-			sql = " select * from (select rownum rnum ,a.* from "
-					+ "(select num,writer,email,subject,passwd,"
-					+ "reg_date,readcount,ref,re_step,re_level,content,"
-					+ "ip from smember where sname = ? by joindate desc) "
-					+ "	a ) where rnum  between ? and ? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
+			if(sclass.equals("초등학교")) {
+				sql = " select * from (select rownum rnum ,a.* from "
+						+ "(select m.name, m.birthday,m.joindate "
+						+ " from MEMBER m, SCHOOL s where m.emtid=s.sid and m.sch_emt=? "
+						+ "order by joindate desc) "
+						+ "	a ) where rnum  between ? and ? ";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, sname);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+				
+			}
+			if(sclass.equals("중학교")) {
+				sql = " select * from (select rownum rnum ,a.* from "
+						+ "(select m.name, m.birthday,m.joindate "
+						+ " from MEMBER m, SCHOOL s where m.emtid=s.sid and m.sch_mid=? "
+						+ "order by joindate desc) "
+						+ "	a ) where rnum  between ? and ? ";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, sname);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+			}
+			if(sclass.equals("고등학교")) {
+				sql = " select * from (select rownum rnum ,a.* from "
+						+ "(select m.name, m.birthday,m.joindate "
+						+ " from MEMBER m, SCHOOL s where m.emtid=s.sid and m.sch_high=? "
+						+ "order by joindate desc) "
+						+ "	a ) where rnum  between ? and ? ";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, sname);
+				pstmt.setInt(2, startRow);
+				pstmt.setInt(3, endRow);
+			}
+		
 			rs = pstmt.executeQuery();
-
 			if (rs.next()) {
 				articleList = new ArrayList();
 				do {
 					SmemberVO article = new SmemberVO();
+					article.setName(rs.getString("name"));
+					article.setBirthday(rs.getInt("birthday"));
+					article.setJoindate(rs.getDate("joindate"));
 					articleList.add(article);
 				} while (rs.next());
 			}
@@ -183,7 +232,6 @@ public class MemberDAO {
 	
 	
 	
-	
 	//회원전체 리스트 
 	public List getAllmember(int startRow, int endRow) {
 		Connection conn = getConnection();
@@ -194,7 +242,7 @@ public class MemberDAO {
 		try {
 			conn = getConnection();
 			sql = " select * from (select rownum rnum ,a.* from "
-					+ "(select memberid, password, name, birthday, joindate"
+					+ "(select *"
 					+ " from member order by joindate desc) "
 					+ "	a ) where rnum  between ? and ? ";
 			pstmt = conn.prepareStatement(sql);
@@ -211,6 +259,9 @@ public class MemberDAO {
 					article.setName(rs.getString("name"));
 					article.setBirthday(rs.getInt("birthday"));
 					article.setJoindate(rs.getDate("joindate"));
+					article.setSch_emt(rs.getString("sch_emt"));
+					article.setSch_mid(rs.getString("sch_mid"));
+					article.setSch_high(rs.getString("sch_high"));
 					articleList.add(article);
 				} while (rs.next());
 			}
@@ -221,8 +272,52 @@ public class MemberDAO {
 		}
 		return articleList;
 	}
-	
-	
+	//동창 인원수 체크
+	@SuppressWarnings("resource")
+	public int getSchoolmateCount(String sclass, String schemt, String schmid, String schhigh) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql=null;
+		int number = 0;
+		try {
+			con=getConnection();
+			if(sclass.equals("초등학교")) {
+				sql = "select nvl(count(*),0) from "
+						+ "(SELECT m.name, m.birthday,m.joindate " + 
+						"from MEMBER m, SCHOOL s "
+						+ "where m.emtid=s.sid and m.sch_emt=?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, schemt);
+			}
+			if(sclass.equals("중학교")) {
+				sql = "select nvl(count(*),0) from "
+						+ "(SELECT m.name, m.birthday,m.joindate " + 
+						"from MEMBER m, SCHOOL s "
+						+ "where m.emtid=s.sid and m.sch_mid=?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, schmid);
+			}
+			if(sclass.equals("고등학교")) {
+				sql = "select nvl(count(*),0) from "
+						+ "(SELECT m.name, m.birthday,m.joindate " + 
+						"from MEMBER m, SCHOOL s "
+						+ "where m.emtid=s.sid and m.sch_high=?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, schhigh);
+			}
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				number = rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+
+			close(con, pstmt, rs);
+		}
+		return number;
+	}
 	
 	
 	
@@ -253,134 +348,6 @@ public class MemberDAO {
 		return number;
 	}
 
-	// 게시글 리스트에 뽑아내는 메소드(2)
-	public List getMembers(int startRow, int endRow, String sch_emt) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		List memberList = null;
-		String sql = "";
-		try {
-			conn = getConnection();
-			sql = " select * from (select rownum rnum ,a.* from "
-					+ "(select password,name,email,sch_emt,sch_mid,"
-					+ "sch_high, content, birthday, num "
-					+ "from member where sch_emt = ?) "
-					+ "a ) where rnum  between ? and ? ";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, sch_emt);
-			pstmt.setInt(2, startRow);
-			pstmt.setInt(3, endRow);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-				memberList = new ArrayList();
-				do {
-					MemberVO member = new MemberVO();
-					member.setBirthday(rs.getInt("birthday"));
-					member.setName(rs.getString("name"));
-					member.setSch_emt(rs.getString("sch_emt"));
-					member.setSch_mid(rs.getString("sch_mid"));
-					member.setSch_high(rs.getString("sch_high"));
-					member.setPassword(rs.getString("password"));
-					memberList.add(member);
-				} while (rs.next());
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			close(conn, pstmt, rs);
-		}
-		return memberList;
-	}
-
-	// 리스트에서 선택된 글 뽑아내는 메소드 chk에 따라 수정이냐 아니냐
-	public MemberVO getMember(int num, String boardid, String chk) {
-		Connection conn = getConnection();
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		MemberVO member = null;
-		String sql = "";
-		try {
-			conn = getConnection();
-			//컨텐트에서 보낼때 수정하고, update에서 보낼땐 리스트가 보이게끔
-			if (chk.equals("content")) {
-				sql = "update board set readcount = readcount +1 where num=? and boardid =?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setInt(1, num);
-				pstmt.setString(2, boardid);
-				pstmt.executeUpdate();
-			}
-			sql = "select * from board where num =? and boardid =?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setString(2, boardid);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				member = new MemberVO();
-				member.setBirthday(rs.getInt("birthday"));
-				member.setName(rs.getString("name"));
-				member.setSch_emt(rs.getString("sch_emt"));
-				member.setSch_mid(rs.getString("sch_mid"));
-				member.setSch_high(rs.getString("sch_high"));
-				
-				}
-		} catch (Exception e) {
-			e.getStackTrace();
-		} finally {
-			close(conn, pstmt, rs);
-		}
-		return member;
-	}
-
-	// 게시글 수정하는 메소드
-	public int updatemember(MemberVO member) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		int updateCount = 0;
-
-		try {
-			conn = getConnection();
-			String sql = "update board set writer=?, email=?,subject=?, ";
-			sql += "content=? where num=? and passwd=?";
-			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, member.getWriter());
-//			pstmt.setString(2, member.getEmail());
-//			pstmt.setString(3, member.getSubject());
-//			pstmt.setString(4, member.getContent());
-//			pstmt.setInt(5, member.getNum());
-//			pstmt.setString(6, member.getPasswd());
-//			updateCount = pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.getStackTrace();
-		} finally {
-			close(conn, pstmt, null);
-		}
-		return updateCount;
-	}
-	
-	//게시글 삭제 메소드
-	public int deletemember(int num, String passwd, String boardid) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		int deleteNum = -1;
-
-		try {
-			conn = getConnection();
-			String sql = "delete from board where num=? and passwd=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setString(2, passwd);
-			deleteNum = pstmt.executeUpdate();
-
-		} catch (Exception e) {
-			e.getStackTrace();
-		} finally {
-			close(conn, pstmt, null);
-		}
-		return deleteNum;
-	}
 	
 	public MemberVO getUserInfo(String memberid) {
 		Connection conn = getConnection();

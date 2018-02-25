@@ -35,9 +35,24 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   </div>
   <div class="w3-bar w3-blue-grey w3-large" style="z-index:4;">
     <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/mainPage/main.jsp" >메인</a>
-   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="board.jsp" >게시판</a>
-   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="lounge.jsp" >라운지</a>
-   	<i style="font-size:26px" class="fa w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16 w3-right">&#xf039;</i>
+   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/board/schoolmateList.jsp" >게시판</a>
+   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/header/lounge.jsp" >라운지</a> 
+   <!--해더 오른쪽 설정  -->
+  	<div class="w3-dropdown-hover w3-hide-medium w3-right">
+     <button class="w3-button w3-hide-medium w3-hover-white w3-padding-16 "><i class="fa fa-bars" style="font-size:26.7px"></i></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px;right:1px">
+      <a href="<%=request.getContextPath()%>/mainPage/update.jsp" class="w3-bar-item w3-button">회원정보</a>
+      <a href="<%=request.getContextPath()%>/start/logoutPro.jsp" class="w3-bar-item w3-button">로그아웃</a>
+	<% 
+		String memberid=(String)session.getAttribute("id");
+		if(memberid.equals("0gon")){
+			%>
+      		<a href="<%=request.getContextPath()%>/mainPage/admin.jsp" class="w3-bar-item w3-button">[회원관리]</a>
+			<% 
+		}
+	%>
+    </div>
+ 	</div>
   </div>
 </div>
 
@@ -51,7 +66,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 	
 	게시판 링크에서는 학교 id기준으로 if문 써야겠다.
 	학교db에 학교id를 가지고와야돼 뭐를 기준으로? 학교 id가 보드id가 되겠네 
-	
 
  -->
  
@@ -63,9 +77,9 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   <div class="w3-container">
     <h4>학생 명단</h4>
   </div>
-    <a class="w3-bar-item w3-button" href="">(…)초등학교</a>
-  <a class="w3-bar-item w3-button" href="">(…)중학교</a>
-  <a class="w3-bar-item w3-button" href="">(…)고등학교</a>
+    <a class="w3-bar-item w3-button" href="/Project/board/schoolmateList.jsp?index=1"><%=schemt %></a>
+  <a class="w3-bar-item w3-button" href="/Project/board/schoolmateList.jsp?index=2"><%=schmid %></a>
+  <a class="w3-bar-item w3-button" href="/Project/board/schoolmateList.jsp?index=3"><%=schhigh %></a>
   <br>
     <div class="w3-container">
      <h4>자유 게시판</h4>	
@@ -73,20 +87,5 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   </div>
   
  </div>
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-<!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
-<div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;">
-
-
-<p class="w3-xlarge">(……)학교 학생들</p>
-<div class="w3-panel w3-padding-large w3-card-4 ">
-              <img src="/Project/images/ex.png" style="width:70%" alt="Northern Lights" class="w3-margin-bottom">
-    
-</div>
-
-
-</div>
 </body>
 </html>

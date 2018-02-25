@@ -8,22 +8,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+<script >
+		var input = confirm('정말로 탈퇴하시겠습니까?');
+		if(input==true){
+			alert('탈퇴 완료');
+			<%
+			/*맴버아이디 해더에  */
+				MemberDAO dbPro = MemberDAO.getInstance();
+				dbPro.deleteArticle(memberid);
+				session.invalidate();
+			%> 
+			location.href="/Project/start/loginForm.jsp";
+		}
 
-	<%
-		request.setCharacterEncoding("utf-8");
-	
-	%>
-	<jsp:useBean id="member" class="member.MemberVO" />
-	<jsp:setProperty property="*" name="member" />
-	<%
-		MemberDAO dbPro = MemberDAO.getInstance();
-		dbPro.insertMember(member);
-	%>
-<!-- 여기서 학교게시판에 글 추가하는 게 있어야 한다. -->
-
-	
-	<% 
-		response.sendRedirect("loginForm.jsp");
-	%>
+</script>
 </body>
 </html>

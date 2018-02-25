@@ -14,12 +14,6 @@
  String msname=request.getParameter("msname");
  String hsname=request.getParameter("hsname");
  String index= request.getParameter("index");
- 
- String emtid=request.getParameter("emtid");
- String midid=request.getParameter("midid");
- String highid=request.getParameter("highid");
- 
- 
  SchoolDAO schoolDB= SchoolDAO.getInstance();
  List List=null;
  %>
@@ -34,17 +28,18 @@
 		     <tr class="w3-blue">
 		       <th>School Name</th>
 		       <th>Address</th>
+		       <th>blank</th>
 		     </tr>
 		   </thead>
 		     <%
 		     for(int i=0;i<List.size();i++){
 		   	SchoolVO school=(SchoolVO)List.get(i);
 		   	esname=school.getSname();
-		   	emtid=school.getSid();
 		   	%>
 				    <tr>
-				      <td><a href="signup.jsp?emtid=<%=emtid %>&midid=<%=midid %>&highid=<%=highid %>&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>"><%=esname %></a></td>
+				      <td><a href="/Project/mainPage/updateForm.jsp?esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>"><%=esname %></a></td>
 				      <td><%=school.getSaddress() %></td>
+				      <td></td>
 				    </tr>
 		   <%
 		   }
@@ -61,17 +56,18 @@
 		     <tr class="w3-blue">
 		       <th>School Name</th>
 		       <th>Address</th>
+		       <th>blank</th>
 		     </tr>
 		   </thead>
 		     <%
 		     for(int i=0;i<List.size();i++){
 		   	SchoolVO school=(SchoolVO)List.get(i);
 		   	msname=school.getSname();
-		   	midid=school.getSid();
 		   	%>
 				    <tr>
-				      <td><a href="signup.jsp?emtid=<%=emtid %>&midid=<%=midid %>&highid=<%=highid %>&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>"><%=msname %></a></td>
+				      <td><a href="/Project/mainPage/updateForm.jsp?esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>"><%=msname %></a></td>
 				      <td><%=school.getSaddress() %></td>
+				      <td></td>
 				    </tr>
 		   <%
 		   }
@@ -88,17 +84,18 @@
 		     <tr class="w3-blue">
 		       <th>School Name</th>
 		       <th>Address</th>
+		       <th>blank</th>
 		     </tr>
 		   </thead>
 		     <%
 		     for(int i=0;i<List.size();i++){
 		   	SchoolVO school=(SchoolVO)List.get(i);
 		   	hsname=school.getSname();
-		   	highid=school.getSid();
 		   	%>
 				    <tr>
-				      <td><a href="signup.jsp?emtid=<%=emtid %>&midid=<%=midid %>&highid=<%=highid %>&esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>"><%=hsname %></a></td>
+				      <td><a href="/Project/mainPage/updateForm.jsp?esname=<%=esname%>&msname=<%=msname%>&hsname=<%=hsname%>"><%=hsname %></a></td>
 				      <td><%=school.getSaddress() %></td>
+				      <td></td>
 				    </tr>
 		   <%
 		   }

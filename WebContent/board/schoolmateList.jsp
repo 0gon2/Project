@@ -1,4 +1,4 @@
-<%@page import="member.MemberVO"%>
+<%@page import="member.SmemberVO"%>
 <%@page import="member.MemberDAO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
@@ -8,16 +8,21 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-
 <%
-	
-	int pageSize = 10;
-	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	String index= request.getParameter("index");
+	if (index==null){
+		index="1";
+	}
 	String pageNum = request.getParameter("pageNum");
 	if (pageNum == null || pageNum == "") {
 		pageNum = "1";
 	}
+%>
+
+<%
+	String hakmungu=null;
+	int pageSize = 5;
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 	int currentPage = Integer.parseInt(pageNum);
 	int startRow = (currentPage - 1) * pageSize + 1;
 	int endRow = currentPage * pageSize;
@@ -25,9 +30,26 @@
 	int number = 0;
 	List articleList = null;
 	MemberDAO dbPro = MemberDAO.getInstance();
-	count = dbPro.getMemberCount();
-	if (count > 0) {
-		articleList = dbPro.getAllmember(startRow, endRow);
+	if(index.equals("1")){
+		hakmungu=schemt;
+		count=dbPro.getSchoolmateCount("초등학교", schemt, schmid, schhigh);
+		if(count>0){
+		articleList = dbPro.getSchoolmate(startRow, endRow, schemt, "초등학교");
+		}
+	}
+	if(index.equals("2")){
+		hakmungu=schmid;
+		count=dbPro.getSchoolmateCount("중학교", schemt, schmid, schhigh);
+		if(count>0){
+		articleList = dbPro.getSchoolmate(startRow, endRow, schmid, "중학교");
+		}
+	}
+	if(index.equals("3")){
+		hakmungu=schhigh;
+		count=dbPro.getSchoolmateCount("고등학교", schemt, schmid, schhigh);
+		if(count>0){
+		articleList = dbPro.getSchoolmate(startRow, endRow, schhigh, "고등학교");
+		}
 	}
 	number = count - (currentPage - 1) * pageSize;
 %>
@@ -35,8 +57,17 @@
 <title>Insert title here</title>
 </head>
 <body>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
+<div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;">
+
+
+<div class="w3-panel w3-padding-large w3-card-4 w3-light-grey">
+	
+
 		<span class="w3-center  w3-large">
-  <h4 class="w3-opacity"><i class="fa fa-male"></i>&nbsp;(총 회원수:<%=count%>)</h4>
 		</span>
 		
 		<%
@@ -44,35 +75,29 @@
 		%>
 		<table class="w3-table-all" >
 			<tr class="w3-blue">
-				<td align="center">회원이 없을리가...</td>
+				<td align="center">한명도 없을리가...</td>
 		</table>
 		<%
 			} else {
 		%>
 		
-		
+		<p class="w3-large" style="font-style:italic;"><%=hakmungu %> 학생들</p>
 		<table width="100%" border="1" bordercolor="w3-blue" style="border-collapse:collapse;">
 			<tr height="30" class="w3-blue" align="center" >
 				<td align="center" width="6%">번호</td>
 				<td align="center" width="16%" >이름</td>
 				<td align="center" width="11%">생년월일</td>
-				<td align="center" width="18%" >아이디</td>
-				<td align="center" width="18%" >비밀번호</td>
 				<td align="center" width="24%">가입일자</td>
-				<td align="center" width="7%" >퇴학</td>
 			</tr>
 			<%
 				for (int i = 0; i < articleList.size(); i++) {
-						MemberVO article = (MemberVO) articleList.get(i);
+						SmemberVO article = (SmemberVO) articleList.get(i);
 			%>
 			<tr height="30" align="center" >
 				<td align="center" width="6%"><%=number--%></td>
 				<td align="center" width="16%"><%=article.getName()%></td>
 				<td align="center" width="11%"><%=article.getBirthday()%></td>
-				<td align="center" width="18%"><%=article.getMemberid()%></td>
-				<td align="center" width="18%"><%=article.getPassword()%></td>
 				<td align="center" width="24%"><%=sdf.format(article.getJoindate())%></td>
-				<td align="center" width="7%" ><a href="/Project/List/leavePro.jsp?pageNum=<%=pageNum %>&memberid=<%=article.getMemberid()%>" ><i class="fa fa-trash"></i></a></td>
 			</tr>
 			<%
 				}
@@ -96,14 +121,14 @@
 						endPage = pageCount;
 					if (startPage > bottomLine) {
 			%>
-			<a href="admin.jsp?pageNum=<%=startPage - bottomLine%>">[이전]</a>
+			<a href="schoolmateList.jsp?pageNum=<%=startPage - bottomLine%>&index=<%=index%>">[이전]</a>
 			<%
 					}
 			%>
 			<%
 				for (int i = startPage; i <= endPage; i++) {
 			%>
-			<a href="admin.jsp?pageNum=<%=i%>"> <%
+			<a href="schoolmateList.jsp?pageNum=<%=i%>&index=<%=index%>"> <%
  				if (i != currentPage)
  				out.print("[" + i + "]");
  				else
@@ -113,13 +138,41 @@
 				}
 					if (endPage < pageCount) {
 			%>
-			<a href="admin.jsp?pageNum=<%=startPage + bottomLine%>">[다음]</a>
+			<a href="schoolmateList.jsp?pageNum=<%=startPage + bottomLine%>&index=<%=index%>">[다음]</a>
 			<%
 					}
 				}
 			%>
 		</div>
+	
+</div>
 
+
+<!-- END MAIN -->
+</div>
+
+<script>
+// Script to open and close the sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+function w3_show_nav(name) {
+    document.getElementById("menuTut").style.display = "none";
+    document.getElementById("menuRef").style.display = "none";
+    document.getElementById(name).style.display = "block";
+    w3-open();
+}
+</script>
+<script src="https://www.w3schools.com/lib/w3codecolor.js"></script>
+<script>
+w3CodeColor();
+</script>
 
 </body>
 </html>

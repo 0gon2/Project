@@ -25,19 +25,39 @@
 .w3-code{border-left:4px solid #4CAF50}
 .myMenu {margin-bottom:150px}
 html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+
 </style>
 
 <body class="w3-theme-l5">
-<div class="w3-top">
+<div class="w3-top" >
   <div class="w3-row w3-white w3-padding">
     <div class="w3-half" style="margin:4px 0 6px 0"><a href='https://www.w3schools.com'><img src='/Project/images/w3schools.png' alt='W3Schools.com'></a></div>
     <div class="w3-half w3-margin-top w3-wide w3-hide-medium w3-hide-small"><div class="w3-right">THE WORLD'S LARGEST WEB DEVELOPER SITE</div></div>
   </div>
+ 
+ 
   <div class="w3-bar w3-blue-grey w3-large" style="z-index:4;">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/mainPage/main.jsp" >메인</a>
-   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/header/board.jsp" >게시판</a>
+   <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/mainPage/main.jsp" >메인</a>
+   <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/board/schoolmateList.jsp" >게시판</a>
    <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/header/lounge.jsp" >라운지</a>
-   	<i style="font-size:26px" class="fa w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16 w3-right">&#xf039;</i>
+  
+  <!--해더 오른쪽 설정  -->
+  	<div class="w3-dropdown-hover w3-hide-medium w3-right">
+     <button class="w3-button w3-hide-medium w3-hover-white w3-padding-16 "><i class="fa fa-bars" style="font-size:26.7px"></i></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px;right:1px">
+      <a href="<%=request.getContextPath()%>/mainPage/update.jsp" class="w3-bar-item w3-button">회원정보</a>
+      <a href="<%=request.getContextPath()%>/start/logoutPro.jsp" class="w3-bar-item w3-button">로그아웃</a>
+	<% 
+		String memberid=(String)session.getAttribute("id");
+		if(memberid.equals("0gon")){
+			%>
+      		<a href="<%=request.getContextPath()%>/mainPage/admin.jsp" class="w3-bar-item w3-button">[회원관리]</a>
+			<% 
+		}
+	%>
+    </div>
+ 	</div>
+ 	
   </div>
 </div>
 
@@ -56,15 +76,12 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> <%=session.getAttribute("name")%></p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
          <%=aditemt%>, <%=aditmid%>, <%=adithigh%></p>
-         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> March 3, 1992 </p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> March 15, 1992 </p>
         </div>
       </div>
-  <a class="w3-bar-item w3-button" href="<%=request.getContextPath()%>/mainPage/update.jsp">회원정보</a>
-  <a class="w3-bar-item w3-button" href="">로그아웃</a>
   
   </div>
 </div>
-  
 
 
 <!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->

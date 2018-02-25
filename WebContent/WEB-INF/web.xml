@@ -15,7 +15,10 @@
   	<url-pattern>/mainPage/*</url-pattern>
   	<include-prelude>/header/mainPage.jsp</include-prelude>
   	</jsp-property-group>
-  	
+  	<jsp-property-group>
+  	<url-pattern>/board/*</url-pattern>
+  	<include-prelude>/header/board.jsp</include-prelude>
+  	</jsp-property-group>
   	
   	
   </jsp-config> 
