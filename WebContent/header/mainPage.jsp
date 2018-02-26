@@ -37,9 +37,20 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
  
  
   <div class="w3-bar w3-blue-grey w3-large" style="z-index:4;">
+   <a class="w3-left" href="<%=request.getContextPath()%>/mainPage/main.jsp" style="margin-top:15px; margin-left:15px; margin-right:15"><img src="/Project/images/school1.png" ></a>
    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-small w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/mainPage/main.jsp" >메인</a>
    <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/board/schoolmateList.jsp" >게시판</a>
    <a class="w3-bar-item w3-button w3-hide-medium w3-hover-white w3-padding-16" href="<%=request.getContextPath()%>/header/lounge.jsp" >라운지</a>
+   <!-- 알림창 -->
+    <div class="w3-dropdown-hover w3-hide-small">
+  <button class="w3-button w3-hide-medium w3-hover-white w3-padding-16 " title="Notifications"><i class="fa fa-bell" style="font-size:24px"></i><span class="w3-badge w3-right w3-small w3-green">3</span></button>     
+    <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+      <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+      <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+      <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+    </div>
+  </div>
+   <!-- 알림창 -->
   
   <!--해더 오른쪽 설정  -->
   	<div class="w3-dropdown-hover w3-hide-medium w3-right">
@@ -49,7 +60,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       <a href="<%=request.getContextPath()%>/start/logoutPro.jsp" class="w3-bar-item w3-button">로그아웃</a>
 	<% 
 		String memberid=(String)session.getAttribute("id");
-		if(memberid.equals("0gon")){
+		if(memberid.equals("admin")){
 			%>
       		<a href="<%=request.getContextPath()%>/mainPage/admin.jsp" class="w3-bar-item w3-button">[회원관리]</a>
 			<% 
@@ -75,12 +86,26 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
          <hr>
          <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> <%=session.getAttribute("name")%></p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
-         <%=aditemt%>, <%=aditmid%>, <%=adithigh%></p>
+         <a href="/Project/board/schoolmateList.jsp?index=1"><%=aditemt%></a>, <a href="/Project/board/schoolmateList.jsp?index=2"><%=aditmid%></a>,<a href="/Project/board/schoolmateList.jsp?index=3"> <%=adithigh%></a></p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> March 15, 1992 </p>
         </div>
       </div>
+      <div>
+  			내사진첩
+
   
+      
+      </div>
   </div>
+        <div class="w3-card w3-round w3-light-white w3-center">
+        <div class="w3-container">
+          <p>동창을 찾습니다</p>
+          <img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">
+          <p><strong>Holiday</strong></p>
+          <p>Friday 15:00</p>
+          <p><button class="w3-button w3-block w3-theme-l4">Info</button></p>
+        </div>
+      </div>
 </div>
 
 

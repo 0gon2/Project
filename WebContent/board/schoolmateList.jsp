@@ -81,8 +81,8 @@
 			} else {
 		%>
 		
-		<p class="w3-large" style="font-style:italic;"><%=hakmungu %> 학생들</p>
-		<table width="100%" border="1" bordercolor="w3-blue" style="border-collapse:collapse;">
+		<p class="w3-large" style="font-style:italic;"><%=hakmungu %> 학생명단</p>
+		<table width="100%" bordercolor="w3-blue" style="border-collapse:collapse;">
 			<tr height="30" class="w3-blue" align="center" >
 				<td align="center" width="6%">번호</td>
 				<td align="center" width="16%" >이름</td>
@@ -90,14 +90,37 @@
 				<td align="center" width="24%">가입일자</td>
 			</tr>
 			<%
+				String name= (String)session.getAttribute("name");
 				for (int i = 0; i < articleList.size(); i++) {
 						SmemberVO article = (SmemberVO) articleList.get(i);
+						String gname=article.getName();
 			%>
 			<tr height="30" align="center" >
+			
+			
+		
 				<td align="center" width="6%"><%=number--%></td>
-				<td align="center" width="16%"><%=article.getName()%></td>
+				<td class="w3-dropdown-hover " align="center" style=" width:100%;">
+				<%=article.getName()%>
+				
+				 <%if(!gname.equals(name)){
+				 %>
+				 
+					<div class="w3-dropdown-content w3-bar-block w3-card-4" style="right:10px">
+                      <a href="#" class="w3-bar-item w3-button">'<%=article.getName()%>'님 페이지</a>
+                      <a href="#" class="w3-bar-item w3-button">친구추가</a>
+                      <a href="#" class="w3-bar-item w3-button">쪽지보내기</a>
+                    </div></td>
+				 
+				 <%
+				 	 }
+				 %>
+				 
 				<td align="center" width="11%"><%=article.getBirthday()%></td>
 				<td align="center" width="24%"><%=sdf.format(article.getJoindate())%></td>
+				
+				
+				
 			</tr>
 			<%
 				}
@@ -144,7 +167,12 @@
 				}
 			%>
 		</div>
-	
+		<div class="w3-right">
+		  <form action="">
+     		 <input type="text" placeholder="Friend name" name="search">
+     		 <button type="submit"><i class="fa fa-search" style="font-size:20px"></i></button>
+   		 </form>
+		</div>	
 </div>
 
 
