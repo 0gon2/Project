@@ -177,7 +177,8 @@ public class MemberDAO {
 			conn = getConnection();
 			if(sclass.equals("초등학교")) {
 				sql = " select * from (select rownum rnum ,a.* from "
-						+ "(select m.name, m.birthday,m.joindate "
+						+ "(select m.name, m.birthday,m.joindate, m.memberid, "
+						+ "m.sch_emt, m.sch_mid, m.sch_high"
 						+ " from MEMBER m, SCHOOL s where m.emtid=s.sid and m.sch_emt=? "
 						+ "order by joindate desc) "
 						+ "	a ) where rnum  between ? and ? ";
@@ -189,7 +190,8 @@ public class MemberDAO {
 			}
 			if(sclass.equals("중학교")) {
 				sql = " select * from (select rownum rnum ,a.* from "
-						+ "(select m.name, m.birthday,m.joindate "
+						+ "(select m.name, m.birthday,m.joindate, m.memberid, "
+						+ "m.sch_emt, m.sch_mid, m.sch_high"
 						+ " from MEMBER m, SCHOOL s where m.emtid=s.sid and m.sch_mid=? "
 						+ "order by joindate desc) "
 						+ "	a ) where rnum  between ? and ? ";
@@ -200,7 +202,8 @@ public class MemberDAO {
 			}
 			if(sclass.equals("고등학교")) {
 				sql = " select * from (select rownum rnum ,a.* from "
-						+ "(select m.name, m.birthday,m.joindate "
+						+ "(select m.name, m.birthday,m.joindate, m.memberid, "
+						+ "m.sch_emt, m.sch_mid, m.sch_high"
 						+ " from MEMBER m, SCHOOL s where m.emtid=s.sid and m.sch_high=? "
 						+ "order by joindate desc) "
 						+ "	a ) where rnum  between ? and ? ";
@@ -218,6 +221,10 @@ public class MemberDAO {
 					article.setName(rs.getString("name"));
 					article.setBirthday(rs.getInt("birthday"));
 					article.setJoindate(rs.getDate("joindate"));
+					article.setMemberid(rs.getString("memberid"));
+					article.setSch_emt(rs.getString("sch_emt"));
+					article.setSch_mid(rs.getString("sch_mid"));
+					article.setSch_high(rs.getString("sch_high"));
 					articleList.add(article);
 				} while (rs.next());
 			}

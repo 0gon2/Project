@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -99,7 +100,7 @@
 		  <div class="form-style-2">
 		<div class="form-style-2-heading w3-opacity">개인정보 보호를 위해 비밀번호를 입력해주세요.</div>
 		<form action="updatelogin.jsp" name="myform" method="post">
-		<label for="field1"><span>ID <span class="required">*</span></span><%=session.getAttribute("id") %></label>
+		<label for="field1"><span>ID <span class="required">*</span></span>${myId} </label>
 		<label for="field2"><span>Password <span class="required">*</span></span><input type="password" class="input-field" name="password" /></label>
 		<label><span>&nbsp;</span></label><input type="submit" value="확인" />
 		</form>

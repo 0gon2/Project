@@ -1,16 +1,39 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<%
-	String schemt=(String)session.getAttribute("schemt");
-	String schmid=(String)session.getAttribute("schmid");
-	String schhigh=(String)session.getAttribute("schhigh");
+<%	
+	String schemt=request.getParameter("schemt");
+	String schmid=request.getParameter("schmid");
+	String schhigh=request.getParameter("schhigh");
+	String scname= request.getParameter("scname");
+
+	if(schemt==null){
+		 schemt=(String)session.getAttribute("schemt");
+	}
+	if(schmid==null){
+		 schmid=(String)session.getAttribute("schmid");
+	}
+	if(schhigh==null){
+		 schhigh=(String)session.getAttribute("schhigh");
+	}
+	
 	String aditemt=schemt.substring(0,schemt.length()-3);
 	String aditmid=schmid.substring(0,schmid.length()-2);
 	String adithigh=schhigh.substring(0,schhigh.length()-3);
-
+	
+	String pageId=request.getParameter("pageId");
+	if(pageId==null){
+		pageId=(String)session.getAttribute("myId");
+	}
 %>
+<c:set var="pageId" value="<%=pageId %>"/>
+<c:set var="schemt" value="<%=aditemt %>"/>
+<c:set var="schmid" value="<%=aditmid %>"/>
+<c:set var="schhigh" value="<%=adithigh %>"/>
+<c:set var="scname" value="<%=scname %>"/>
+
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -52,51 +75,59 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
   </div>
    <!-- 알림창 -->
   
-  <!--해더 오른쪽 설정  -->
+  <!--해더 오른쪽 위 설정  -->
   	<div class="w3-dropdown-hover w3-hide-medium w3-right">
      <button class="w3-button w3-hide-medium w3-hover-white w3-padding-16 "><i class="fa fa-bars" style="font-size:26.7px"></i></button>     
     <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px;right:1px">
       <a href="<%=request.getContextPath()%>/mainPage/update.jsp" class="w3-bar-item w3-button">회원정보</a>
       <a href="<%=request.getContextPath()%>/start/logoutPro.jsp" class="w3-bar-item w3-button">로그아웃</a>
-	<% 
-		String memberid=(String)session.getAttribute("id");
-		if(memberid.equals("admin")){
-			%>
+
+	<c:if test="${myId=='admin' }">
       		<a href="<%=request.getContextPath()%>/mainPage/admin.jsp" class="w3-bar-item w3-button">[회원관리]</a>
-			<% 
-		}
-	%>
+	</c:if>
     </div>
  	</div>
  	
   </div>
 </div>
 
-<!-- Sidebar -->
+<!-- 사이드바-->
 <div class="w3-sidebar w3-bar-block w3-collapse w3-animate-left" style="z-index:3;width:270px" id="mySidebar">
 
- <div class="myMenu">
-  <div class="w3-container">
 	<p></p>
-  </div>
+  <!-- 프로필 -->
+  <c:if test="${pageId==myId }">
      <div class="w3-card w3-round w3-white">
         <div class="w3-container">
-         <h4 class="w3-center">My Profile</h4>
+         <h4 class="w3-center">Profile</h4>
          <p class="w3-center"><img src="<%=request.getContextPath()%>/images/defaultprofile.jpg" class="w3-circle" style="height:106px;width:106px" ></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> <%=session.getAttribute("name")%></p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> ${name }</p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
          <a href="/Project/board/schoolmateList.jsp?index=1"><%=aditemt%></a>, <a href="/Project/board/schoolmateList.jsp?index=2"><%=aditmid%></a>,<a href="/Project/board/schoolmateList.jsp?index=3"> <%=adithigh%></a></p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> March 15, 1992 </p>
         </div>
       </div>
-      <div>
-  			내사진첩
-
-  
-      
+  </c:if>
+  <c:if test="${pageId!=myId }">
+     <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center">other Profile</h4>
+         <p class="w3-center"><img src="<%=request.getContextPath()%>/images/defaultprofile.jpg" class="w3-circle" style="height:106px;width:106px" ></p>
+         <hr>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>${scname }</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
+         ${schemt }, ${schmid }, ${schhigh }</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> March 15, 1992 </p>
+        </div>
       </div>
-  </div>
+  </c:if>
+      
+      
+      
+      <div>
+  			사진첩 같은거
+      </div>
         <div class="w3-card w3-round w3-light-white w3-center">
         <div class="w3-container">
           <p>동창을 찾습니다</p>
@@ -110,6 +141,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
 
 
 <!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
+
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
+<div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;"></div>
+
+
+
+
 
 </body>
 </html>

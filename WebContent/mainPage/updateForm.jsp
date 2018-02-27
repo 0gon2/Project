@@ -1,6 +1,7 @@
 <%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
@@ -210,7 +211,7 @@
 		  <div class="form-style-2">
 		<div class="form-style-2-heading w3-opacity">학교정보 수정</div>
 			<form class="form-style-7" method="post" action="updatePro.jsp">
-				<input type="hidden" name="memberid" value="<%=memberid%>">
+				<input type="hidden" name="memberid" value="${myId }">
 				<ul>
 				<li>
 				    <label for="name">Elementary School</label>

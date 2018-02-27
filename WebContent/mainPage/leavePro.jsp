@@ -1,6 +1,7 @@
 <%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,7 +16,7 @@
 			<%
 			/*맴버아이디 해더에  */
 				MemberDAO dbPro = MemberDAO.getInstance();
-				dbPro.deleteArticle(memberid);
+				dbPro.deleteArticle((String)session.getAttribute("myId"));
 				session.invalidate();
 			%> 
 			location.href="/Project/start/loginForm.jsp";

@@ -1,17 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+
+<% 
+	
+%>
 </head>
 <body>
 <!-- Overlay effect when opening sidebar on small screens -->
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
-<div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;">
+<div class="w3-main w3-container" style="margin-left:270px;">
  <!-- The Grid -->
  <p>
  
@@ -79,7 +84,7 @@
     <div class="w3-col m2">
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
-          <p>오늘의 명언</p>
+          <p>오늘의 명언같은거ㅋㅋ</p>
           <img src="/w3images/forest.jpg" alt="Forest" style="width:100%;">
           <p><strong>Holiday</strong></p>
           <p>Friday 15:00</p>
@@ -88,6 +93,7 @@
       </div>
       <br>
       
+      <!-- 문제의 친구추가 -->
       <div class="w3-card w3-round w3-white w3-center">
         <div class="w3-container">
           <p>친구추가하기</p>
@@ -103,6 +109,11 @@
           </div>
         </div>
       </div>
+      <!--  -->
+      
+      
+      
+      
       <br>
       
       <div class="w3-card w3-round w3-white w3-padding-16 w3-center">
