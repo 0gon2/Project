@@ -8,7 +8,6 @@
 	String schmid=request.getParameter("schmid");
 	String schhigh=request.getParameter("schhigh");
 	String scname= request.getParameter("scname");
-
 	if(schemt==null){
 		 schemt=(String)session.getAttribute("schemt");
 	}
@@ -29,10 +28,6 @@
 	}
 %>
 <c:set var="pageId" value="<%=pageId %>"/>
-<c:set var="schemt" value="<%=aditemt %>"/>
-<c:set var="schmid" value="<%=aditmid %>"/>
-<c:set var="schhigh" value="<%=adithigh %>"/>
-<c:set var="scname" value="<%=scname %>"/>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
@@ -110,14 +105,15 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
       </div>
   </c:if>
   <c:if test="${pageId!=myId }">
+
      <div class="w3-card w3-round w3-white">
         <div class="w3-container">
          <h4 class="w3-center">other Profile</h4>
          <p class="w3-center"><img src="<%=request.getContextPath()%>/images/defaultprofile.jpg" class="w3-circle" style="height:106px;width:106px" ></p>
          <hr>
-         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i>${scname }</p>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i><%=scname %></p>
          <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i>
-         ${schemt }, ${schmid }, ${schhigh }</p>
+         <%=aditemt%>, <%=aditmid %>, <%=adithigh %></p>
          <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> March 15, 1992 </p>
         </div>
       </div>
@@ -138,14 +134,6 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
         </div>
       </div>
 </div>
-
-
-<!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
-
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
-<!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
-<div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;"></div>
 
 
 

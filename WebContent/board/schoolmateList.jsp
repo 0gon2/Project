@@ -107,7 +107,7 @@
 				 %>
 				 
 					<div class="w3-dropdown-content w3-bar-block w3-card-4" style="right:10px">
-                      <a href="#" onclick="addHeader()"class="w3-bar-item w3-button">'<%=article.getName()%>'님 페이지</a>
+                      <a href="/Project/mainPage/main.jsp?pageId=<%=article.getMemberid() %>&scname=<%=article.getName() %>&schemt=<%=article.getSch_emt() %>&schmid=<%=article.getSch_mid()%>&schhigh=<%=article.getSch_high() %>" class="w3-bar-item w3-button">'<%=article.getName()%>'님 페이지</a>
                       <a href="#" class="w3-bar-item w3-button">친구추가</a>
                       <a href="#" class="w3-bar-item w3-button">쪽지보내기</a>
                     </div></td>
