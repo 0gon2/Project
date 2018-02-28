@@ -14,6 +14,7 @@ import java.util.List;
 
 
 
+
 public class MemberDAO {
 	// 싱글턴 메소드(1)
 	private static MemberDAO instance = new MemberDAO();
@@ -160,6 +161,51 @@ public class MemberDAO {
 		}
 
 	}
+	//친구관계 테이블에 회원 추가
+	public void requestFriend(relationVO article) {
+		Connection con = getConnection();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "";
+		int number = 0;
+		try {
+			sql = "insert into relation(myid, otherid, status) values(?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, article.getMyId());
+			pstmt.setString(2, article.getOtherId());
+			pstmt.setInt(3, 1);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.getStackTrace();
+		} finally {
+			close(con, pstmt, rs);
+		}
+
+	}
+	
+	
+	
+	
+	
+	//status 가지고오기
+	public void getRelation(String myId, String pageId) {
+		Connection conn = getConnection();
+		PreparedStatement pstmt = null;
+		String sql = "";
+		int statusNum=0;
+		
+		try {
+			conn = getConnection();
+			sql = "insert into relation values (?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(conn, pstmt, null);
+		}
+	}
+	
 	
 	
 	

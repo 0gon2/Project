@@ -18,8 +18,8 @@
 	<%
 		MemberDAO dbPro = MemberDAO.getInstance();
 		dbPro.insertMember(member);
+		dbPro.friendRelation(member.getMemberid());
 	%>
-<!-- 여기서 학교게시판에 글 추가하는 게 있어야 한다. -->
 
 	
 	<% 
