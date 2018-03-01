@@ -38,11 +38,12 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
 <style>
+@import url(//fonts.googleapis.com/earlyaccess/jejuhallasan.css);
 .w3-theme {color:#fff !important;background-color:#4CAF50 !important}
 .w3-btn {background-color:#4CAF50;margin-bottom:4px}
 .w3-code{border-left:4px solid #4CAF50}
 .myMenu {margin-bottom:150px}
-html,body,h1,h2,h3,h4,h5 {font-family: "Open Sans", sans-serif}
+html,body,h1,h2,h3,h4,h5 {font-family: 'Jeju Hallasan', sans-serif; }
 
 </style>
 

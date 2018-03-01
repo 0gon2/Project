@@ -184,29 +184,26 @@ public class MemberDAO {
 	}
 	
 	
-	
-	
-	
-	//status 가지고오기
-	public void getRelation(String myId, String pageId) {
-		Connection conn = getConnection();
+	public void defaultRelation(String myId) {
+		Connection con = getConnection();
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		String sql = "";
-		int statusNum=0;
-		
+		int number = 0;
 		try {
-			conn = getConnection();
-			sql = "insert into relation values (?,?,?)";
-			pstmt = conn.prepareStatement(sql);
-
+			sql = "insert into relation(myid, otherid, status) values(?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, myId);
+			pstmt.setString(2, myId);
+			pstmt.setInt(3, 1);
+			pstmt.executeUpdate();
 		} catch (Exception e) {
-			e.printStackTrace();
+			e.getStackTrace();
 		} finally {
-			close(conn, pstmt, null);
+			close(con, pstmt, rs);
 		}
+
 	}
-	
-	
 	
 	
 	

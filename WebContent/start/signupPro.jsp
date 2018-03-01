@@ -18,7 +18,7 @@
 	<%
 		MemberDAO dbPro = MemberDAO.getInstance();
 		dbPro.insertMember(member);
-		dbPro.friendRelation(member.getMemberid());
+	//	dbPro.defaultRelation(member.getMemberid());
 	%>
 
 	
