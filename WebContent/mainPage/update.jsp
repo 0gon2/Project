@@ -93,7 +93,7 @@
 <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 <!-- Main content: shift it to the right by 270 pixels when the sidebar is visible -->
 <div class="w3-main w3-container" style="margin-left:270px;margin-top:117px;">
-   <div class="w3-panel w3-padding-large w3-card-4">
+<div class="w3-panel w3-padding-large w3-card-4">
     
   <h4 class="w3-opacity"><i class="fa fa-male"></i>&nbsp;회원정보</h4>
   <div class="w3-col m7" >

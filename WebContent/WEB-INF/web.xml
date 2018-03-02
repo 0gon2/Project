@@ -19,8 +19,6 @@
   	<url-pattern>/board/*</url-pattern>
   	<include-prelude>/header/board.jsp</include-prelude>
   	</jsp-property-group>
-  	
-  	
   </jsp-config> 
   
   <!--로그인 필터  -->

@@ -51,6 +51,7 @@
 	
 	function helloToServer(type){
 		if(type=='esname'){
+			alert("aaa");
 		var params ="esname="+encodeURIComponent(document.f.esname.value)+"&index=1&msname=<%=msname%>&hsname=<%=hsname%>&emtid=<%=emtid%>&midid=<%=midid%>&highid=<%=highid%>";
 		sendRequest("searchList.jsp",params,helloFromServer,"POST");
 		}
